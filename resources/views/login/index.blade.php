@@ -41,14 +41,17 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
+
                                 <a class="text-center" href="index.html"> <h4>TAKES (Telkom Akses Kesehatan)</h4></a>
+
+                                @include('partial.alerts')
 
                                 <form class="mt-5 mb-5 login-input" method="post">
 
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-                                        <input type="text" name="username" class="form-control" placeholder="Username / NIK" maxlength="20" required>
+                                        <input type="text" name="nik" class="form-control" placeholder="NIK / NIM" maxlength="20" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control" placeholder="Password" required>
