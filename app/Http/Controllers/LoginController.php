@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use DB;
+use App\DA\LoginModel;
 
 date_default_timezone_set('Asia/Makassar');
 
@@ -26,12 +27,7 @@ class LoginController extends Controller
         $check = DB::table('users')->where('id_user', $nik)->where('password', MD5($password))->first();
         if ($check)
         {
-            $data = DB::table('data_karyawan as dk')
-            ->leftJoin('users as u', 'dk.nik', '=', 'u.id_user')
-            ->leftJoin('level_karyawan as lk', 'dk.level', '=', 'lk.id_level')
-            ->where('dk.nik', $nik)
-            ->select('dk.nik', 'dk.name', 'u.password', 'u.token', 'lk.level_name')
-            ->first();
+            $data = LoginModel::getUser($nik);
 
             $session = $req->session();
             $session->put('auth', $data);
@@ -44,8 +40,6 @@ class LoginController extends Controller
                 ['type' => 'danger', 'text' => '<strong>MAAF</strong> NIK atau Password yang anda masukan salah']
             ]);
         }
-
-        dd($req->all(), MD5($req->input('password')));
     }
 
     public function register()
@@ -58,7 +52,6 @@ class LoginController extends Controller
     public function register_save(Request $req)
     {
         $nik = $req->input('nik');
-        $token = $this->generateRememberToken($nik);
 
         $check = DB::table('users')->where('id_user', $nik)->first();
         if ($check)
@@ -68,19 +61,7 @@ class LoginController extends Controller
             ]);
         }
 
-        DB::table('data_karyawan')->insert([
-            'name' => $req->input('name'),
-            'nik' => $req->input('nik'),
-            'level' => $req->input('level'),
-            'created_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('users')->insert([
-            'id_user' => $req->input('nik'),
-            'password' => MD5($req->input('password')),
-            'token' => $token,
-            'login_at' => date('Y-m-d H:i:s')
-        ]);
+        LoginModel::register_save($req);
 
         return redirect('/login')->with('alerts', [
             ['type' => 'success', 'text' => 'Pendaftaran berhasil']
@@ -96,14 +77,15 @@ class LoginController extends Controller
     {
         $token = $localUser->token;
 
-        if (!$localUser->token) {
-        $token = $this->generateRememberToken($localUser->id_user);
-        DB::table('users')
-        ->where('id_user', $localUser->id_user)
-        ->update([
-            'token' => $token
-        ]);
-        $localUser->token = $token;
+        if (!$localUser->token)
+        {
+            $token = $this->generateRememberToken($localUser->id_user);
+            DB::table('users')
+            ->where('id_user', $localUser->id_user)
+            ->update([
+                'token' => $token
+            ]);
+            $localUser->token = $token;
         }
 
         return $token;
@@ -118,8 +100,9 @@ class LoginController extends Controller
         }
 
         $response = redirect($url);
-        if ($rememberToken) {
-        $response->withCookie(cookie()->forever('presistent-token', $rememberToken));
+        if ($rememberToken)
+        {
+            $response->withCookie(cookie()->forever('presistent-token', $rememberToken));
         }
 
         return $response;
