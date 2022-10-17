@@ -17,7 +17,7 @@ Route::post('/login', 'LoginController@login_save');
 Route::get('/register', 'LoginController@register');
 Route::post('/register', 'LoginController@register_save');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'secure_login'], function() {
 
     Route::get('/', function () {
         return view('home.index');
