@@ -46,5 +46,22 @@ class LoginModel
         ->select('dk.nik', 'dk.name', 'u.password', 'u.token', 'lk.level_name')
         ->first();
     }
+
+    public static function detail_profile($nik)
+    {
+        return DB::table('data_karyawan as dk')
+        ->where('dk.nik', $nik)
+        ->select('dk.nik', 'dk.name', 'dk.jenis_kelamin', 'dk.tgl_lahir', 'dk.usia', 'dk.email')
+        ->first();
+    }
+
+    public static function edit_profile($nik)
+    {
+        return DB::table('data_karyawan as dk')
+        ->where('dk.nik', $nik)
+        ->select('dk.nik', 'dk.name', 'dk.jenis_kelamin', 'dk.tgl_lahir', 'dk.usia', 'dk.email')
+        ->first();
+    }
+
 }
 ?>

@@ -23,4 +23,8 @@ Route::group(['middleware' => 'secure_login'], function() {
         return view('home.index');
     })->name('home');
 
+    Route::get('/profile', 'UserController@profile');
+    Route::get('/editprofile', 'UserController@edit_profile');
+    Route::post('/editprofile', 'UserController@edit_profile');
+
 });
