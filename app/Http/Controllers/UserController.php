@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use DB;
 use App\DA\LoginModel;
+date_default_timezone_set('Asia/Makassar');
 
 class UserController extends Controller
 {
