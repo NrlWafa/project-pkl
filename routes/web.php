@@ -25,6 +25,5 @@ Route::group(['middleware' => 'secure_login'], function() {
 
     Route::get('/profile', 'UserController@profile');
     Route::get('/editprofile', 'UserController@edit_profile');
-    Route::post('/editprofile', 'UserController@edit_profile');
-
+    Route::post('/editprofile', 'UserController@update_profile');
 });

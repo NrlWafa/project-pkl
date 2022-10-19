@@ -25,4 +25,12 @@ class UserController extends Controller
         return view('profile.editprofile', ['profile' => $profile]);
     }
 
+    public function update_profile(Request $req)
+    {
+        dd($req->all());
+        $profile = LoginModel::edit_profile(session('auth')->nik);
+
+        return view('profile.editprofile', ['profile' => $profile]);
+    }
+
 }
