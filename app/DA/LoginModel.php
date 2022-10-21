@@ -63,5 +63,17 @@ class LoginModel
         ->first();
     }
 
+    public static function update_profile($req)
+    {
+        DB::table('data_karyawan')->where('nik', session('auth')->nik)->update([
+            'nik' => $req->nik,
+            'name' => $req->nama_lengkap,
+            'jenis_kelamin' => $req->jk,
+            'tgl_lahir' => $req->tl,
+            'usia' => $req->usia,
+            'email' => $req->email
+        ]);
+    }
+
 }
 ?>

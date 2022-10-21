@@ -30,7 +30,17 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Tanggal Lahir</label>
-                            <input type="text" class="form-control" name="tl" id="datepicker-autoclose" placeholder="mm/dd/yyyy" value="{{ $profile->tgl_lahir }}"><span class="input-group-append"></span>
+                            <input type="text" class="form-control" name="tl" placeholder="Tanggal lahir" id="mdate" value="{{ $profile->tgl_lahir }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Usia</label>
+                            <input type="text" class="form-control" name="usia" placeholder="Usia" value="{{ $profile->usia }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ $profile->email }}">
                         </div>
                     </div>
                     <div class="input-group mb-3">
