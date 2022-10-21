@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/theme/plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="/theme/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    {{-- <link rel="stylesheet" href="/theme/resources/demos/style.css"> --}}
     <!-- Custom Stylesheet -->
     <link href="/theme/css/style.css" rel="stylesheet">
 
@@ -134,7 +134,6 @@
 
     <script src="/theme/js/dashboard/dashboard-1.js"></script>
     <script src="/theme/plugins/moment/moment.js"></script>
-
 </body>
 
 </html>
